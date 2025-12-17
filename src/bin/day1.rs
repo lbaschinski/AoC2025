@@ -63,7 +63,7 @@ fn get_password(lines: Vec<String>) -> Result<(i64, i64, Vec<i64>)> {
 }
 
 fn day1() -> Result<(i64, i64, Vec<i64>)> {
-    let lines: Vec<String> = read_lines("src/input.txt")?;
+    let lines: Vec<String> = read_lines("src/data/input.txt")?;
     get_password(lines)
 }
 
