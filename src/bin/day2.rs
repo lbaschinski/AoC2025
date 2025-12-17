@@ -23,10 +23,14 @@ fn splitter(input: Vec<String>) -> Result<Vec<(i64, i64)>> {
 fn step(id: i64) -> Option<i64> {
     let id_str = id.to_string();
     let length = id_str.chars().count();
-    if length % 2 == 0 {
-        let (first, second) = id_str.split_at(length / 2);
-        if first == second {
-            return Some(id);
+    for pattern_length in 1..length {
+        if length % pattern_length == 0 {
+            let (pattern, _) = id_str.split_at(pattern_length);
+            let amount = length / pattern_length;
+            let full_pattern = pattern.repeat(amount);
+            if full_pattern == id_str {
+                return Some(id);
+            }
         }
     }
     return None;
@@ -56,8 +60,7 @@ fn day2() -> Result<(Vec<i64>, i64)> {
 fn main() -> Result<()> {
     let (_, sum) = day2()?;
     println!("Hello from Day 2:");
-    println!("First solution is {}!", sum);
-    // println!("Second Password is {}!", loops+password);
+    println!("The solution is {}!", sum);
     Ok(())
 }
 
@@ -70,7 +73,7 @@ mod tests {
         let input: Vec<String> = read_lines("src/data/testInput2.txt")?;
         let ranges: Vec<(i64, i64)> = splitter(input)?;
         let (_, sum) = find_invalid_ids(ranges)?;
-        assert_eq!(sum, 1227775554);
+        assert_eq!(sum, 4174379265);
         Ok(())
     }
 }
