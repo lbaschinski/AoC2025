@@ -1,6 +1,8 @@
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
+
+use aoc2025::split_range;
 
 fn read_lines(filename: &str) -> io::Result<Vec<String>> {
     let file = File::open(filename)?;
@@ -12,10 +14,7 @@ fn splitter(input: Vec<String>) -> Result<Vec<(i64, i64)>> {
     let mut id_ranges: Vec<(i64, i64)> = vec![];
     let mut ranges = input[0].split(',');
     for range in ranges.by_ref() {
-        let mut values = range.split('-');
-        let start = values.next().ok_or(anyhow!("no start value in this range"))?.trim().parse::<i64>()?;
-        let end = values.next().ok_or(anyhow!("no end value in this range"))?.trim().parse::<i64>()?;
-        id_ranges.push((start, end));
+        id_ranges.push(split_range(range.to_string())?);
     }
     Ok(id_ranges)
 }

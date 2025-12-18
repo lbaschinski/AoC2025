@@ -1,7 +1,10 @@
 [package]
-name = "AoC2025"
+name = "aoc2025"
 version = "0.1.0"
 edition = "2024"
+
+[lib]
+path = "src/lib.rs"
 
 [dependencies]
 anyhow = "1.0.100"
